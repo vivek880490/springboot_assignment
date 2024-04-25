@@ -12,8 +12,12 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}")
-    public String getUser(@PathVariable String userId){
-        return "get user was called with userId ="+userId;
+    public UserDetail getUser(@PathVariable String userId){
+        UserDetail user1 = new UserDetail();
+        user1.setFirstName("alex");
+        user1.setLastName("matt");
+        user1.setEmail("alex@gmail.com");
+        return user1;
     }
 
     @PostMapping
