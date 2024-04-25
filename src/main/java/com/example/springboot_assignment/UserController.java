@@ -1,23 +1,29 @@
 package com.example.springboot_assignment;
 
 import org.apache.catalina.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.Media;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
+
+    Map<String, UserDetail> users;
 
     @GetMapping
     public String getuser(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value="limit", defaultValue = "50") int limit){
         return "getuser was called with page = "+page+"limt ="+limit;
     }
 
-    @GetMapping(path = "/{userId}"
+    @GetMapping(path = "/{Id}"
 //            ,
 //            produces = {
 //            MediaType.APPLICATION_XML_VALUE,
@@ -25,12 +31,17 @@ public class UserController {
 //
 //    }
     )
-    public ResponseEntity<UserDetail> getUser(@PathVariable String userId){
-        UserDetail user1 = new UserDetail();
-        user1.setFirstName("alex");
-        user1.setLastName("matt");
-        user1.setEmail("alex@gmail.com");
-        return new ResponseEntity<UserDetail>(user1,HttpStatusCode.valueOf(200));
+    public ResponseEntity<UserDetail> getUser(@PathVariable String Id){
+      if(users.containsKey(Id)){
+
+          return new ResponseEntity<>(users.get(Id),HttpStatusCode.valueOf(200));
+      }
+      else{
+          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+
+
+
     }
 
     @PostMapping
@@ -39,6 +50,11 @@ public class UserController {
         user1.setFirstName(UserDetail.getFirstName());
         user1.setLastName(UserDetail.getLastName());
         user1.setEmail(UserDetail.getEmail());
+
+        String Id = UUID.randomUUID().toString();
+        user1.setId(Id);
+        if(users == null) users = new HashMap<>();
+        users.put(Id,user1);
         return new ResponseEntity<UserDetail>(user1,HttpStatusCode.valueOf(200));
 
     }
