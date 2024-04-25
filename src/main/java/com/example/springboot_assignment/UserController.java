@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @GetMapping
-    public String getuser(@RequestParam(value = "page") int page, @RequestParam(value="limit") int limit){
+    public String getuser(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value="limit", defaultValue = "50") int limit){
         return "getuser was called with page = "+page+"limt ="+limit;
     }
 
