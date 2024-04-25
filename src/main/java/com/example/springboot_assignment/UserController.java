@@ -1,5 +1,6 @@
 package com.example.springboot_assignment;
 
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,12 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(){
-        return "create user was called";
+    public ResponseEntity<UserDetail> createUser(@RequestBody UserDetailModel UserDetail){
+        UserDetail user1 = new UserDetail();
+        user1.setFirstName(UserDetail.getFirstName());
+        user1.setLastName(UserDetail.getLastName());
+        user1.setEmail(UserDetail.getEmail());
+        return new ResponseEntity<UserDetail>(user1,HttpStatusCode.valueOf(200));
 
     }
 
