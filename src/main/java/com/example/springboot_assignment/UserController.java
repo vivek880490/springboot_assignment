@@ -69,7 +69,9 @@ users.put(Id,storedUserDetails);
 return storedUserDetails;
     }
 
-    public String deleteUser(){
-        return "delete user was called";
+    @DeleteMapping(path="/{Id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String Id){
+        users.remove(Id);
+        return ResponseEntity.noContent().build();
     }
 }
