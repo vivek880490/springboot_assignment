@@ -1,7 +1,6 @@
 package com.example.springboot_assignment;
 
 public class UserDetailModel {
-
     private String firstName;
     private String lastName;
     private String email;
