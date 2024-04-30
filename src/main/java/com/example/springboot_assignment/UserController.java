@@ -1,6 +1,7 @@
 package com.example.springboot_assignment;
 
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -17,7 +18,10 @@ import java.util.UUID;
 @RequestMapping("users")
 public class UserController {
 
+    @Autowired
+    UserService userService;
     Map<String, UserDetail> users;
+
 
     @GetMapping
     public String getuser(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value="limit", defaultValue = "50") int limit){
@@ -48,15 +52,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDetail> createUser(@RequestBody UserDetailModel UserDetail){
-        UserDetail user1 = new UserDetail();
-        user1.setFirstName(UserDetail.getFirstName());
-        user1.setLastName(UserDetail.getLastName());
-        user1.setEmail(UserDetail.getEmail());
-
-        String Id = UUID.randomUUID().toString();
-        user1.setId(Id);
-        if(users == null) users = new HashMap<>();
-        users.put(Id,user1);
+UserDetail user1 = userService.createUser(UserDetail);
         return new ResponseEntity<UserDetail>(user1,HttpStatusCode.valueOf(200));
 
     }

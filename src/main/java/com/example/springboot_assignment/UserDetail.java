@@ -4,16 +4,16 @@ package com.example.springboot_assignment;
 
 public class UserDetail {
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    private static String firstName;
+    private static String lastName;
+    private static String email;
     private String id;
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
-    public String getFirstName() {
+    public static String getFirstName() {
         return firstName;
     }
 
@@ -21,7 +21,7 @@ public class UserDetail {
         return id;
     }
 
-    public String getLastName() {
+    public static String getLastName() {
         return lastName;
     }
 
