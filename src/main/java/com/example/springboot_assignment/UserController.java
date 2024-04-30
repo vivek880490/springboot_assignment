@@ -33,7 +33,8 @@ public class UserController {
 //    }
     )
     public ResponseEntity<UserDetail> getUser(@PathVariable String Id){
-      if(users.containsKey(Id)){
+      if(true) throw new UserServiceException("A user service exception is thrown");
+        if(users.containsKey(Id)){
 
           return new ResponseEntity<>(users.get(Id),HttpStatusCode.valueOf(200));
       }
